@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 3</title>
+</head>
+<body>
+
+    <script>
+        function problemOne() {
+            let n = prompt("P1 Introduzca un numero:");
+            let x = parseInt(n); 
+
+            if (isNaN(x) || x < 0) {
+                return false;
+            }
+
+            let reverse = 0;
+            let xcopy = x;
+
+            while (x > 0) {
+                reverse = (reverse * 10) + (x % 10);
+                x = Math.floor(x / 10);
+            }
+
+            return reverse === xcopy;
+        }
+
+        let result = problemOne();
+        alert("Es palindromo: " + result); 
+    </script>
+
+    <script>   
+        let n = prompt("Introduzca un string:");
+        let x = {};
+
+        for (let i of n) {
+            if (x[i]) {
+                x[i] += 1;
+            } else {
+                x[i] = 1;
+            }
+        }
+
+        for (let i in x) {
+            console.log(`${i} se repite ${x[i]} veces`);
+        }
+    </script>
+
+    <script>
+        function esBisiesto(a) {
+            return (a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0);
+        }
+
+        let anio = prompt("Ingrese un año:");
+        let bisiesto = esBisiesto(parseInt(anio));
+        alert("Es bisiesto: " + bisiesto);
+    </script>
+
+    <script>
+        function sumaPrimos(n) {
+            function esPrimo(num) {
+                if (num < 2) return false;
+                for (let i = 2; i <= Math.sqrt(num); i++) {
+                    if (num % i === 0) return false;
+                }
+                return true;
+            }
+
+            let suma = 0;
+            for (let i = 1; i <= n; i++) {
+                if (esPrimo(i)) suma += i;
+            }
+            return suma;
+        }
+
+        let numero = prompt("Ingrese un número (0 < n < 1000000):");
+        let resultadoSuma = sumaPrimos(parseInt(numero));
+        alert("Suma de primos: " + resultadoSuma);
+    </script>
+
+</body>
+</html>
