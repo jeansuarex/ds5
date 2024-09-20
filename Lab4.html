@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio 4</title>
+</head>
+<body>
+  <main>
+    <input type="text" id="liveInput" placeholder="Escribe aquí...">
+    <div id="liveOutput"></div>
+  </main>
+
+  <script type="module">
+    const Utils = (() => {
+      const reverseText = (text) => text.split('').reverse().join('');
+      return { reverseText };
+    })();
+
+    const App = (() => {
+      const inputField = document.querySelector('#liveInput');
+      const outputDiv = document.querySelector('#liveOutput');
+
+      const bindEvents = () => {
+        inputField.addEventListener('input', () => {
+          const reversedText = Utils.reverseText(inputField.value);
+          outputDiv.innerHTML = `<span style="color: red;">${reversedText}</span>`;
+        });
+      };
+      return { init: bindEvents };
+    })();
+
+    App.init();
+  </script>
+</body>
+</html>
