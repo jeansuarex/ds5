@@ -4,11 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laboratorio 4</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    main {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+    #liveInput {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #liveOutput {
+      font-size: 1.2em;
+    }
+    .color-buttons {
+      margin-top: 20px;
+    }
+    .color-buttons button {
+      padding: 10px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .color-buttons .red { background-color: red; color: white; }
+    .color-buttons .yellow { background-color: yellow; color: black; }
+    .color-buttons .green { background-color: green; color: white; }
+  </style>
 </head>
 <body>
   <main>
     <input type="text" id="liveInput" placeholder="Escribe aquí...">
     <div id="liveOutput"></div>
+    <div class="color-buttons">
+      <button class="red" data-color="red">Rojo</button>
+      <button class="yellow" data-color="yellow">Amarillo</button>
+      <button class="green" data-color="green">Verde</button>
+    </div>
   </main>
 
   <script type="module">
@@ -20,11 +67,20 @@
     const App = (() => {
       const inputField = document.querySelector('#liveInput');
       const outputDiv = document.querySelector('#liveOutput');
-
+      const colorButtons = document.querySelectorAll('.color-buttons button');
+      let currentColor = 'red'; 
       const bindEvents = () => {
         inputField.addEventListener('input', () => {
           const reversedText = Utils.reverseText(inputField.value);
-          outputDiv.innerHTML = `<span style="color: red;">${reversedText}</span>`;
+          outputDiv.innerHTML = `<span style="color: ${currentColor};">${reversedText}</span>`;
+        });
+
+        colorButtons.forEach(button => {
+          button.addEventListener('click', (e) => {
+            currentColor = e.target.getAttribute('data-color');
+            const reversedText = Utils.reverseText(inputField.value);
+            outputDiv.innerHTML = `<span style="color: ${currentColor};">${reversedText}</span>`;
+          });
         });
       };
       return { init: bindEvents };
